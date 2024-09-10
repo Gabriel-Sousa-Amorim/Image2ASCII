@@ -4,9 +4,9 @@ A Python Learning Project, that recreates an image with text, commonly known as 
 
 ### Requirements
 
-Python 3.4+ (recommended Python 3.4 or later)
-Pip (required if using Python below 3.4)
-Git (optional for cloning the repository)
+- Python 3.4+ (recommended Python 3.4 or later)
+- Pip (required if using Python below 3.4)
+- Git (optional for cloning the repository)
 
 ## Installation
 
