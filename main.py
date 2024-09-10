@@ -1,11 +1,10 @@
-from PIL import Image, ImageOps
+from PIL import Image
 from urllib.request import urlopen, HTTPError
 import sys, os, re
 
 def convertImg(im_input: Image, path: str) -> None:
     # Set of chars to generate the art recommended very diverse set
     chars : str = " _.:-=+*%#@ÕÑ"
-
     char_to_add : str = ""
     output: str = ""
     
@@ -14,11 +13,14 @@ def convertImg(im_input: Image, path: str) -> None:
 
     for index, px_tuple in enumerate(im_input.getdata()):
         if (index % im_input.width == 0 and index != 0): output+="\n"            
-        avg_px = sum(px_tuple) // 4
-        # For loop for finding the best fitting character for the given obj
-        for val in range_list:
-            if abs(avg_px - val) < abs(avg_px - range_list[0]):
-                char_to_add = chars[range_list.index(val)]
+        if (px_tuple[-1] > 0):
+            avg_px = sum(px_tuple[0:-1]) // 3
+            # For loop for finding the best fitting character for the given obj
+            for val in range_list:
+                if abs(avg_px - val) < abs(avg_px - range_list[0]):
+                    char_to_add = chars[range_list.index(val)]
+        else:
+            char_to_add = " "
         output += char_to_add
 
     text_file = open(f"{os.path.basename(os.path.splitext(path)[0])}.out.txt", "w+")
@@ -32,6 +34,7 @@ def main(path:str, img_size:int = 1) -> None:
             im = Image.open(urlopen(path))
         else:
             im = Image.open(path)
+        im = im.convert('RGBA')
         if (img_size in [0,1]):
             out = im.resize((im.width, im.height))
         else: 
