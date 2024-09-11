@@ -22,6 +22,12 @@ git clone https://github.com/Gabriel-Sousa-Amorim/Image2ASCII.git
 cd Image2ASCII
 ```
 
+3. Install requirements:
+
+```
+pip install -r requirements.txt
+```
+
 ## Usage
 
 To generate ASCII art from an image, run the following command:
