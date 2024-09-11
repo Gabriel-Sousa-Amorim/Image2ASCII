@@ -46,7 +46,7 @@ python3 main.py ./images/sample.jpg 2
 
 ## Running Tests
 
-Check the [tests/](./tests/) folder for example outputs.
+Check the [tests/](https://gabriel-sousa-amorim.github.io/Image2ASCII/tests/) folder for example outputs.
 
 
 ```
