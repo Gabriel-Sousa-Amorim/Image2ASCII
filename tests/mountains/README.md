@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/Gabriel-Sousa-Amorim/Image2ASCII/refs/heads/main/tests/mountains/mountains.jpg" alt="Photography of Mountains by Jack B.">
 
-> **Photo de [Jack B](https://unsplash.com/pt-br/@nervum?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) na [Unsplash](https://unsplash.com/pt-br/fotografias/birds-eye-view-fotografia-da-ilha-e-corpo-de-agua-8Wqm1W59Baw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)**
+> **Photo by [Jack B](https://unsplash.com/pt-br/@nervum?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/pt-br/fotografias/birds-eye-view-fotografia-da-ilha-e-corpo-de-agua-8Wqm1W59Baw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)**
 
 To generate the **ASCII Art** from that image, run the following command:
 
