@@ -31,7 +31,7 @@ def convert_image(image_input: Image, path: str) -> NoReturn:
     for index, px_tuple in enumerate(image_input.getdata()):
         # If last pixel should go to a newline
         if (index % image_input.width == 0 and index != 0): 
-            output+="\n"            
+            output_file+="\n"            
             
         # RGB Channel Values in tuple
         rgb = px_tuple[0:-1]
