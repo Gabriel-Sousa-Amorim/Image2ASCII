@@ -3,43 +3,43 @@ from urllib.request import urlopen, HTTPError
 from typing import NoReturn
 import sys, os, re
 
-def convert_image(image_input: Image, path: str) -> NoReturn:
+def convert_image(output_path: str, image_input: Image) -> NoReturn:
     """
         Function for converting the image to text directly
         @params
+        output_path: str
+            The output path to the text art.
+        
         image_input: PIL.Image
-            The image which will be converted to text art
-
-        path: str
-            The output path to the text art
+            The image that will be converted to text art.
     """
-    
+
     # Set of chars to generate the text art
     ## The predefined is recommended, because of the diversity and compatibility 
     charset = " _.:-=+*%#@"
     
     concat_char : str = ""
-    output_text: str = ""
+    output_text : str = ""
     
-    # 255 the highest possible value 
-    # 255 Divided by the charset length to get the range value between each character
+    # 255 the highest possible value for a pixel
+    # 255 divided by the charset length to get the range value between each character
     range_char: int = 255 // len(charset) 
 
-    # A list with all intervals
+    # A list with all the intervals
     range_list: list = [range_char * i for i in range(len(charset))]
 
     for index, px_tuple in enumerate(image_input.getdata()):
-        # If last pixel should go to a newline
+        # If the last pixel should go to a newline
         if (index % image_input.width == 0 and index != 0): 
-            output_file+="\n"            
+            output_text += "\n"            
             
-        # RGB Channel Values in tuple
+        # RGB Channel Values in a tuple
         rgb = px_tuple[0:-1]
         
         # Alpha Channel Value
         alpha_ch = px_tuple[-1]
 
-        # If alpha channel is 0 automatically concat_char is certainly charset[0]
+        # If the alpha channel is 0 automatically, concat_char is certainly charset[0]
         if (alpha_ch > 0):
             # Average of the RGB Channels
             avg_ch = sum(rgb) // 3
@@ -53,24 +53,25 @@ def convert_image(image_input: Image, path: str) -> NoReturn:
 
         output_text += concat_char
     
-    output_file_name: str = f"{os.path.basename(os.path.splitext(path)[0])}.out.txt"
-    output_file = open(output_file_name, "w+")
+   
+    output_file = open(output_path, "w+")
     output_file.writelines(output_text)
 
-    print(f"\nThe image was processed succefully! Check out:\n- {os.path.abspath(output_file_name)}\n")
+    print(f"\nThe image was processed successfully! Check out:\n- \"{os.path.abspath(output_path)}\"\n")
 
-def validate(path:str, output_size:int = 1) -> None:
+def validate(input_path:str, output_size:int = 1) -> NoReturn:
     """
-        Function for converting the image to text directly
+        Function to validate the path and output size
         @params
-        path: str
-            The path for the image you want to convert
+        input_path: str
+            - The path for the image you want to convert
 
         output_size: int = 1
-            How many times it will divide the image initial size to the output size
-            Example:
-                An image with a width of 800px, and height of 600px. With a image_size of 2, the output would have 400 characters by 300 characters
-                
+            - The integer value, predefined as one of what will be the fraction of the image's initial size            
+            - Example:
+                - An image with a width of 800px and a height of 600px. With an output_size of 2, the output would have 400 characters by 300 characters. Since:
+                    - 800 / 2 = 400;
+                    - 600 / 2 = 300.
     """
     try:
         # Regular Expression for URLs
@@ -79,32 +80,34 @@ def validate(path:str, output_size:int = 1) -> None:
         input_image: Image
         processed_image: Image
 
-        path_to_image = path
-        if (re.match(URL_REGEX, path)):
-            path_to_image = urlopen(path)
+        path_to_image = input_path
+        if (re.match(URL_REGEX, input_path)):
+            path_to_image = urlopen(input_path)
 
         input_image = Image.open(path_to_image)
 
-        # Convert the each pixel to 
+        # Convert the each pixel to RGBA format
         input_image = input_image.convert('RGBA')
         
         if (output_size in [0,1]):
             processed_image = input_image.resize((input_image.width, input_image.height))
 
         else: 
-            # Dividing the input_image width and height to 
+            # Dividing the input_image width and height to the output size fraction
             output_width: int = input_image.width // output_size
             output_height: int = input_image.height // output_size
 
             processed_image = input_image.resize((output_width, output_height))
 
+        output_path: str = f"{os.path.basename(os.path.splitext(input_path)[0])}.output.txt"
+
         # Convert Image to Text
-        convert_image(processed_image, path)
+        convert_image(output_path, processed_image)
         
     except OSError:
-        raise OSError("Reqested file not found")
+        raise OSError("Requested file not found.")
     except HTTPError:
-        raise HTTPError("The requested URL is invalid")
+        raise HTTPError("The requested URL is invalid.")
 
 if __name__ == "__main__":
     if (len(sys.argv) >= 2): 
@@ -117,17 +120,17 @@ if __name__ == "__main__":
                 validate(path, output_size)
             
             except ValueError:
-                raise ValueError("Second value needs to be an integer")
+                raise ValueError("The second value needs to be an integer.")
     else:
         msg: str = """
-For running the program properly run
+To run the program properly, run:
 $ python main.py image_path output_size.
 
 - image_path: 
-    - An URL or a Path to an Image file.
+    - A URL or a path to an image file.
 
 - output_size: 
-    - The fraction of the original size for the output, default value as 1 (Original Size) not reccomended
+    - The fraction of the original size for the output, default value as 1 (original size), not recommended
 """
         print(msg)
     pass
