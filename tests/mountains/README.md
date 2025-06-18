@@ -1,6 +1,6 @@
 # Image2ASCII - "Mountains" Test
 
-<img src="https://github.com/Gabriel-Sousa-Amorim/Image2ASCII/blob/main/tests/mountains/mountains.png" alt="Photography of Mountains by Jack B.">
+<img src="https://github.com/Gabriel-Sousa-Amorim/Image2ASCII/blob/main/tests/mountains/mountains.jpg" alt="Photography of Mountains by Jack B.">
 
 > **Photo de [Jack B](https://unsplash.com/pt-br/@nervum?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) na [Unsplash](https://unsplash.com/pt-br/fotografias/birds-eye-view-fotografia-da-ilha-e-corpo-de-agua-8Wqm1W59Baw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)**
 
