@@ -4,7 +4,7 @@ import sys, os, re
 
 def convertImg(im_input: Image, path: str) -> None:
     # Set of chars to generate the art recommended very diverse set
-    chars : str = " _.:-=+*%#@ÕÑ"
+    chars : str = " _.:-=+*%#@"
     char_to_add : str = ""
     output: str = ""
     
